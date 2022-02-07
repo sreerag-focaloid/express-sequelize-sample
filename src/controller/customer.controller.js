@@ -23,10 +23,24 @@ exports.createCustomer = async (req, res) => {
 
 exports.listCustomers = async (req, res) => {
   const customer = await Customer.findAll();
+
+  console.log(customer);
   if (customer) {
     res.status(200).json({ data: customer });
   }
   if (!customer) {
-    res.status(400).json({ message: "Error Occured" });
+    res.status(400).json({ message: "Error Occurred" });
+  }
+};
+
+exports.listCustomerByName = async (req, res) => {
+  const customer = await Customer.findOne({ where: { name: req.body.name } });
+
+  console.log(customer);
+  if (customer) {
+    res.status(200).json({ data: customer });
+  }
+  if (!customer) {
+    res.status(400).json({ message: "Error Occurred" });
   }
 };
